@@ -2,6 +2,7 @@
 {-# LANGUAGE Safe #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE QuantifiedConstraints #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Control.Applicative.Backwards
@@ -38,7 +39,9 @@ import Control.Monad.Fix
 -- actions in the reverse order.
 newtype Backwards f a = Backwards { forwards :: f a }
 #ifdef __GLASGOW_HASKELL__
-    deriving (Generic, Generic1)
+    deriving (Generic, Generic1, Eq, Ord, Read, Show)
+#else
+    deriving (Eq, Ord, Read, Show)
 #endif
 
 instance (Eq1 f) => Eq1 (Backwards f) where
@@ -57,10 +60,10 @@ instance (Show1 f) => Show1 (Backwards f) where
     liftShowsPrec sp sl d (Backwards x) =
         showsUnaryWith (liftShowsPrec sp sl) "Backwards" d x
 
-instance (Eq1 f, Eq a) => Eq (Backwards f a) where (==) = eq1
-instance (Ord1 f, Ord a) => Ord (Backwards f a) where compare = compare1
-instance (Read1 f, Read a) => Read (Backwards f a) where readsPrec = readsPrec1
-instance (Show1 f, Show a) => Show (Backwards f a) where showsPrec = showsPrec1
+-- instance (Eq1 f, Eq a) => Eq (Backwards f a) where (==) = eq1
+-- instance (Ord1 f, Ord a) => Ord (Backwards f a) where compare = compare1
+-- instance (Read1 f, Read a) => Read (Backwards f a) where readsPrec = readsPrec1
+-- instance (Show1 f, Show a) => Show (Backwards f a) where showsPrec = showsPrec1
 
 -- | Derived instance.
 instance (Functor f) => Functor (Backwards f) where
