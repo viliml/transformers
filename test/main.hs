@@ -7,11 +7,13 @@ import qualified StateStrictness
 import           Test.Tasty
 
 import qualified WriterStrictness
+import qualified Backwards
 
 main :: IO ()
 main = do
   ComposeT.test
   defaultMain $ testGroup "Transformers" [
     StateStrictness.test,
-    WriterStrictness.test
+    WriterStrictness.test,
+    Backwards.test
    ]
