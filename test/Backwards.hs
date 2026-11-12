@@ -16,7 +16,7 @@ import Control.Applicative.Backwards (Backwards(..))
 import Data.Proxy
 import Data.List.NonEmpty (NonEmpty)
 import Data.Functor.Identity (Identity)
-import Data.Tuple (Solo)
+import Data.Tuple.Solo (Solo)
 import Data.Complex (Complex)
 import Control.Applicative (ZipList(ZipList))
 import Data.Functor.Product (Product)
@@ -29,6 +29,7 @@ import qualified Control.Monad.Trans.Writer.Strict as Strict
 import qualified Control.Monad.Trans.Writer.CPS as CPS
 import qualified Control.Monad.Trans.State.Lazy as Lazy
 import qualified Control.Monad.Trans.State.Strict as Strict
+import Control.Applicative
 
 deriving newtype instance Arbitrary (m a) => Arbitrary (Backwards m a)
 deriving newtype instance (Arbitrary (m (a, w))) => Arbitrary (Lazy.WriterT w m a)
